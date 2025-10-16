@@ -6,7 +6,19 @@
 const Queue = require('../lib/Queue')
 
 function groceryCheckout(queue) {
-  // your code here
+  const tempQueue = new Queue()
+  
+  while(!queue.isEmpty()){
+    const customer = queue.dequeue()
+    const total = customer.cart.reduce((sum, item) => sum + item.price, 0)
+    // console.log(total)
+    if(total > 50){
+      tempQueue.enqueue(customer)
+    }
+  }
+  while(!tempQueue.isEmpty()){
+    queue.enqueue(tempQueue.dequeue())
+  }
 }
 
 const customers = new Queue();

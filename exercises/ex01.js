@@ -7,7 +7,20 @@
 const Queue = require('../lib/Queue')
 
 function processApplicants(queue) {
-  // your code here
+  const tempQueue = new Queue()
+
+  while(!queue.isEmpty()){
+    const applicant = queue.dequeue()
+    if(applicant.yearsExperience >= 2 && applicant.techStack.includes('React')){
+      tempQueue.enqueue(applicant)
+    }
+  }
+
+  while(!tempQueue.isEmpty()){
+    queue.enqueue(tempQueue.dequeue())
+  }
+
+  return queue.printQueue()
 }
 
 const applicants = new Queue()
@@ -21,3 +34,4 @@ console.log(applicants.printQueue())
 // Expected output:
 // { name: "Jane Smith", yearsExperience: 5, techStack: ['Node', 'React', 'Vue'] }
 // { name: "Jack Smith", yearsExperience: 2, techStack: ['Node', 'MongoDB', 'React'] }
+
